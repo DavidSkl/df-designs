@@ -1210,6 +1210,14 @@
   </div>
 </section>
 
+<!-- PORTFOLIO MODAL -->
+<div class="modal-overlay" id="portfolioOverlay" onclick="closePortfolio(event)" style="z-index:200">
+  <div class="modal-box" style="max-width:550px;max-height:80vh;overflow-y:auto">
+    <button class="modal-close" onclick="closePortfolioModal()">✕</button>
+    <div id="portfolioModalContent"></div>
+  </div>
+</div>
+
 <!-- PORTFOLIO -->
 <section id="portfolio">
   <div class="portfolio-header reveal">
@@ -1220,55 +1228,48 @@
     <a href="https://behance.net/df1994" target="_blank" class="btn-secondary">Ver Tudo no Behance →</a>
   </div>
 
-  <div class="portfolio-grid">
-    <a href="https://behance.net/df1994" target="_blank" class="portfolio-card reveal">
-      <div class="card-thumb thumb-1">BRAND</div>
+  <div class="portfolio-grid" style="grid-template-columns:repeat(2,1fr)">
+
+    <!-- OEIRAS -->
+    <div class="portfolio-card reveal" onclick="openPortfolio('oeiras')" style="cursor:pointer">
+      <div class="card-thumb thumb-1">OEIRAS</div>
       <div class="card-info">
-        <div class="card-category">Identidade Visual</div>
-        <div class="card-title">Branding Completo</div>
-        <div class="card-desc">Logo, cores, tipografia e guia de marca</div>
+        <div class="card-category">Social Media & Branding</div>
+        <div class="card-title">AD Oeiras</div>
+        <div class="card-desc">Clica para ver todos os projetos →</div>
       </div>
-    </a>
-    <a href="https://behance.net/df1994" target="_blank" class="portfolio-card reveal">
-      <div class="card-thumb thumb-2">SOCIAL</div>
+    </div>
+
+    <!-- MURCHES -->
+    <div class="portfolio-card reveal" onclick="openPortfolio('murches')" style="cursor:pointer">
+      <div class="card-thumb thumb-2">MURCHES</div>
       <div class="card-info">
-        <div class="card-category">Redes Sociais</div>
-        <div class="card-title">Pack Instagram</div>
-        <div class="card-desc">Templates e posts para redes sociais</div>
+        <div class="card-category">Social Media</div>
+        <div class="card-title">GRF Murches</div>
+        <div class="card-desc">Clica para ver todos os projetos →</div>
       </div>
-    </a>
-    <a href="https://behance.net/df1994" target="_blank" class="portfolio-card reveal">
-      <div class="card-thumb thumb-3">LOGO</div>
+    </div>
+
+    <!-- AFONSO -->
+    <div class="portfolio-card reveal" onclick="openPortfolio('afonso')" style="cursor:pointer">
+      <div class="card-thumb thumb-3">AFONSO</div>
       <div class="card-info">
-        <div class="card-category">Logótipo</div>
-        <div class="card-title">Design de Logo</div>
-        <div class="card-desc">Criação de logótipo profissional e versátil</div>
+        <div class="card-category">Social Media</div>
+        <div class="card-title">Afonso Esteves</div>
+        <div class="card-desc">Clica para ver todos os projetos →</div>
       </div>
-    </a>
-    <a href="https://behance.net/df1994" target="_blank" class="portfolio-card reveal">
-      <div class="card-thumb thumb-4">PRINT</div>
+    </div>
+
+    <!-- PIMENTA -->
+    <div class="portfolio-card reveal" onclick="openPortfolio('pimenta')" style="cursor:pointer">
+      <div class="card-thumb thumb-5">PIMENTA</div>
       <div class="card-info">
-        <div class="card-category">Print & Marketing</div>
-        <div class="card-title">Material Impresso</div>
-        <div class="card-desc">Cartões, flyers e banners profissionais</div>
+        <div class="card-category">Social Media</div>
+        <div class="card-title">Pimenta</div>
+        <div class="card-desc">Clica para ver todos os projetos →</div>
       </div>
-    </a>
-    <a href="https://behance.net/df1994" target="_blank" class="portfolio-card reveal">
-      <div class="card-thumb thumb-5">ADS</div>
-      <div class="card-info">
-        <div class="card-category">Publicidade</div>
-        <div class="card-title">Campanhas Digitais</div>
-        <div class="card-desc">Peças para campanhas online e offline</div>
-      </div>
-    </a>
-    <a href="https://behance.net/df1994" target="_blank" class="portfolio-card reveal">
-      <div class="card-thumb thumb-6">+</div>
-      <div class="card-info">
-        <div class="card-category">E muito mais</div>
-        <div class="card-title">Ver Portfolio Completo</div>
-        <div class="card-desc">Todos os projetos disponíveis no Behance</div>
-      </div>
-    </a>
+    </div>
+
   </div>
 </section>
 
@@ -1425,6 +1426,102 @@
       btn.style.color = '';
       document.getElementById('successMsg').style.display = 'none';
     }, 3500);
+  }
+
+  const portfolioData = {
+    oeiras: {
+      title: 'AD Oeiras',
+      color: 'var(--red)',
+      projects: [
+        { name: 'More than a game', url: 'https://www.behance.net/gallery/217472251/More-than-a-game' },
+        { name: 'ADN Oeirense – New Projecto', url: 'https://www.behance.net/gallery/211895537/ADN-OEIRENSE-l-New-Projecto' },
+        { name: 'AD Oeiras Social Media 24/25', url: 'https://www.behance.net/gallery/207923709/AD-Oeiras-Social-Media-2425' },
+        { name: 'Taça de Portugal', url: 'https://www.behance.net/gallery/214174549/Taca-de-Portugal' },
+        { name: 'AD Oeiras Social Media Game Day', url: 'https://www.behance.net/gallery/164057579/AD-Oeiras-Social-Media-Game-day-' },
+        { name: 'AD Oeiras 22/23', url: 'https://www.behance.net/gallery/150121543/AD-OEIRAS-2223' },
+        { name: 'Social Media January', url: 'https://www.behance.net/gallery/136412137/Social-Media-January' },
+        { name: 'AD Oeiras 12/21', url: 'https://www.behance.net/gallery/134381589/AD-Oeiras-1221' },
+        { name: 'Matchday vs Alenquer', url: 'https://www.behance.net/gallery/132987401/Matchday-vs-Alenquer' },
+        { name: 'Gameday', url: 'https://www.behance.net/gallery/132535261/Gameday' },
+        { name: 'Projeto Extra', url: 'https://www.behance.net/gallery/206983941/_' },
+      ]
+    },
+    murches: {
+      title: 'GRF Murches',
+      color: '#FFD600',
+      projects: [
+        { name: 'Games of the Month', url: 'https://www.behance.net/gallery/235973921/Games-of-the-month' },
+        { name: 'Gameday', url: 'https://www.behance.net/gallery/235538307/Gameday' },
+        { name: 'Just Starting', url: 'https://www.behance.net/gallery/234495561/Just-starting' },
+        { name: 'Beginning', url: 'https://www.behance.net/gallery/233842507/Beginning' },
+        { name: 'Full Team – We Are Ready', url: 'https://www.behance.net/gallery/232094435/Full-team-we-are-ready' },
+        { name: 'GRF Murches Schedule', url: 'https://www.behance.net/gallery/231565477/GRF-Murches-Schedule' },
+        { name: 'New House New Style', url: 'https://www.behance.net/gallery/231421903/New-house-new-style' },
+      ]
+    },
+    afonso: {
+      title: 'Afonso Esteves',
+      color: '#1769ff',
+      projects: [
+        { name: 'November v2', url: 'https://www.behance.net/gallery/241256099/November-v2' },
+        { name: 'November Things', url: 'https://www.behance.net/gallery/239709297/November-things' },
+        { name: 'Same Boys Different Town', url: 'https://www.behance.net/gallery/230004559/Same-boys-different-town/modules/1318125227' },
+        { name: 'New Era Same Ambition', url: 'https://www.behance.net/gallery/207224889/New-era-same-ambition' },
+        { name: 'Just Do It', url: 'https://www.behance.net/gallery/197463759/Just-do-it' },
+        { name: 'A Middle Child', url: 'https://www.behance.net/gallery/193982663/A-middle-child' },
+        { name: 'Train Hard Play Hard', url: 'https://www.behance.net/gallery/193185345/Train-hard-play-hard' },
+        { name: 'Game Time', url: 'https://www.behance.net/gallery/191533531/Game-time' },
+        { name: 'Home Game', url: 'https://www.behance.net/gallery/189394193/Home-game' },
+        { name: 'Say What', url: 'https://www.behance.net/gallery/214881441/Say-what' },
+        { name: 'First Half of January 22', url: 'https://www.behance.net/gallery/217072937/First-half-of-January-22' },
+        { name: 'Dreamed a Dream', url: 'https://www.behance.net/gallery/219221715/Dreamed-a-dream-' },
+        { name: 'Another Game Another Opportunity', url: 'https://www.behance.net/gallery/221906925/Another-game-another-oportunity' },
+      ]
+    },
+    pimenta: {
+      title: 'Pimenta',
+      color: 'var(--red)',
+      projects: [
+        { name: 'December Things', url: 'https://www.behance.net/gallery/241257169/December-things' },
+        { name: 'November v2', url: 'https://www.behance.net/gallery/241256099/November-v2' },
+        { name: 'November Things', url: 'https://www.behance.net/gallery/239709297/November-things' },
+        { name: 'End of the Season', url: 'https://www.behance.net/gallery/226525719/End-of-the-season' },
+        { name: 'Break All to Win', url: 'https://www.behance.net/gallery/223421415/Break-all-to-win' },
+        { name: 'First Half of January', url: 'https://www.behance.net/gallery/217072815/First-half-of-January' },
+        { name: 'November PART1', url: 'https://www.behance.net/gallery/214105763/November-PART1' },
+        { name: 'Taça de Portugal', url: 'https://www.behance.net/gallery/213574839/Taca-de-Portugal' },
+      ]
+    }
+  };
+
+  function openPortfolio(client) {
+    const data = portfolioData[client];
+    const list = data.projects.map(p => `
+      <a href="${p.url}" target="_blank" style="display:flex;align-items:center;justify-content:space-between;padding:0.9rem 1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;text-decoration:none;color:var(--white);margin-bottom:0.6rem;transition:all 0.2s;font-size:0.9rem;font-weight:500"
+        onmouseover="this.style.borderColor='${data.color}';this.style.background='rgba(255,255,255,0.06)'"
+        onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.background='rgba(255,255,255,0.03)'">
+        ${p.name}
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="opacity:0.4;flex-shrink:0"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>`).join('');
+
+    document.getElementById('portfolioModalContent').innerHTML = `
+      <div style="margin-bottom:1.5rem">
+        <div style="font-size:0.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${data.color};margin-bottom:0.4rem">Projetos</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px">${data.title}</div>
+      </div>
+      ${list}
+    `;
+    document.getElementById('portfolioOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePortfolioModal() {
+    document.getElementById('portfolioOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closePortfolio(e) {
+    if (e.target === document.getElementById('portfolioOverlay')) closePortfolioModal();
   }
 
   // MODAL
