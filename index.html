@@ -840,9 +840,242 @@
     .social-links-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; text-align: center; }
   }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .modal-overlay.open {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal-box {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--yellow));
+    border-radius: 20px 20px 0 0;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    background: rgba(255,255,255,0.06);
+    border: none;
+    color: #888;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { background: rgba(232,0,13,0.2); color: var(--red); }
+
+  .modal-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--red), #ff4444);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.3rem;
+  }
+
+  .modal-sub {
+    color: #666;
+    font-size: 0.85rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .modal-form .form-group { margin-bottom: 1rem; }
+
+  .modal-form .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 0.4rem;
+  }
+
+  .modal-form input,
+  .modal-form select,
+  .modal-form textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.3s;
+  }
+
+  .modal-form input:focus,
+  .modal-form select:focus,
+  .modal-form textarea:focus {
+    border-color: var(--yellow);
+    background: rgba(255,214,0,0.04);
+    box-shadow: 0 0 0 3px rgba(255,214,0,0.08);
+  }
+
+  .modal-form textarea { resize: vertical; min-height: 90px; }
+  .modal-form select option { background: var(--dark3); }
+
+  .modal-submit {
+    width: 100%;
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .modal-submit:hover {
+    background: var(--yellow);
+    color: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,214,0,0.25);
+  }
+
+  .modal-success {
+    display: none;
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+
+  .modal-success-icon {
+    width: 64px; height: 64px;
+    background: rgba(0,200,80,0.1);
+    border: 2px solid rgba(0,200,80,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.8rem;
+  }
+
+  .modal-success h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: #4ecca3;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-success p { color: #666; font-size: 0.9rem; }
 </style>
 </head>
 <body>
+
+<!-- MODAL ORÇAMENTO -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon">
+      <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </div>
+    <div class="modal-title">PEDIR ORÇAMENTO</div>
+    <div class="modal-sub">Respondo em menos de 24h ⚡</div>
+
+    <form class="modal-form" name="orcamento" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleModalSubmit(event)">
+      <input type="hidden" name="form-name" value="orcamento">
+      <p style="display:none"><input name="bot-field"></p>
+      <div class="form-group">
+        <label>O teu nome</label>
+        <input type="text" name="nome" placeholder="Como te chamas?" required>
+      </div>
+      <div class="form-group">
+        <label>Email de contacto</label>
+        <input type="email" name="email" placeholder="o.teu@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>Tipo de projeto</label>
+        <select name="servico" required>
+          <option value="">Seleciona um serviço...</option>
+          <option>Identidade Visual / Branding</option>
+          <option>Design para Redes Sociais</option>
+          <option>Logótipo</option>
+          <option>Material de Marketing</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensagem</label>
+        <textarea name="mensagem" placeholder="Descreve o teu projeto..." required></textarea>
+      </div>
+      <button type="submit" class="modal-submit">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Enviar Mensagem
+      </button>
+    </form>
+
+    <div class="modal-success" id="modalSuccess">
+      <div class="modal-success-icon">✅</div>
+      <h3>MENSAGEM ENVIADA!</h3>
+      <p>Obrigado pelo interesse! Entro em contacto em breve.</p>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav id="navbar">
@@ -851,7 +1084,7 @@
     <li><a href="#home">Início</a></li>
     <li><a href="#about">Sobre</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contact" class="nav-cta">Trabalhar Comigo</a></li>
+    <li><a href="#" onclick="openModal(); return false;" class="nav-cta">Trabalhar Comigo</a></li>
   </ul>
   <div class="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -879,7 +1112,7 @@
     </h1>
     <p class="hero-desc">Transformo ideias em identidades visuais únicas. Design gráfico, branding e conteúdo visual que faz a diferença para o teu negócio.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">
+      <a href="#" onclick="openModal(); return false;" class="btn-primary">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         Pedir Orçamento
       </a>
@@ -935,7 +1168,7 @@
       <p class="section-desc" style="margin-bottom:1.5rem">Sou um designer gráfico apaixonado por criar experiências visuais que comunicam, inspiram e convertem. Trabalho com marcas que querem destacar-se da concorrência.</p>
       <p class="section-desc">Cada projeto é tratado com atenção total — desde o conceito inicial até ao produto final. A minha missão é simples: fazer o teu negócio parecer profissional e memorável.</p>
       <div style="margin-top:2.5rem">
-        <a href="#contact" class="btn-primary">Vamos Trabalhar Juntos</a>
+        <a href="#" onclick="openModal(); return false;" class="btn-primary">Vamos Trabalhar Juntos</a>
       </div>
     </div>
     <div class="about-visual reveal">
@@ -1120,7 +1353,48 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+  // MODAL
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      document.getElementById('modalSuccess').style.display = 'none';
+      document.querySelector('.modal-form').style.display = 'block';
+      document.querySelector('.modal-title').style.display = 'block';
+      document.querySelector('.modal-sub').style.display = 'block';
+      document.querySelector('.modal-form').reset();
+    }, 300);
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  async function handleModalSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    try {
+      await fetch('/', { method: 'POST', body: data });
+    } catch(err) {}
+    form.style.display = 'none';
+    document.querySelector('.modal-title').style.display = 'none';
+    document.querySelector('.modal-sub').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+    setTimeout(() => closeModal(), 3500);
+  }
+
+  // ESC key closes modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
   // SCROLL REVEAL
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -1147,4 +1421,6 @@
   // HAMBURGER
   function toggleMenu() {
     const menu = document.getElementById('mobileMenu');
-    menu.classList.to
+    menu.classList.toggle('open');
+  }
+</script>
