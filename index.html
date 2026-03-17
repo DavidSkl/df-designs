@@ -451,9 +451,11 @@
   }
 
   .floating-badge {
-    position: absolute;
-    bottom: -20px;
-    right: -20px;
+    position: relative;
+    bottom: auto;
+    right: auto;
+    display: block;
+    margin: 1.5rem auto 0;
     background: var(--yellow);
     color: var(--dark);
     border-radius: 12px;
@@ -464,6 +466,7 @@
     line-height: 1.1;
     text-align: center;
     box-shadow: 0 10px 30px rgba(255,214,0,0.3);
+    width: fit-content;
   }
 
   /* PORTFOLIO */
@@ -1312,33 +1315,37 @@
     <div class="contact-form reveal">
       <div class="form-title">Pede o Teu Orçamento</div>
       <div class="form-sub">Respondo em menos de 24 horas 🚀</div>
-      <div class="form-group">
-        <label>Nome</label>
-        <input type="text" placeholder="O teu nome">
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="o.teu@email.com">
-      </div>
-      <div class="form-group">
-        <label>Tipo de Projeto</label>
-        <select>
-          <option value="">Seleciona um serviço...</option>
-          <option>Identidade Visual / Branding</option>
-          <option>Design para Redes Sociais</option>
-          <option>Logótipo</option>
-          <option>Material de Marketing</option>
-          <option>Outro</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Mensagem</label>
-        <textarea placeholder="Descreve o teu projeto..."></textarea>
-      </div>
-      <button class="btn-submit" onclick="submitForm()">
-        Enviar Mensagem ✦
-      </button>
-      <div class="success-msg" id="successMsg">✅ Mensagem enviada! Entro em contacto em breve.</div>
+      <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleContactSubmit(event)">
+        <input type="hidden" name="form-name" value="contacto">
+        <p style="display:none"><input name="bot-field"></p>
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" name="nome" placeholder="O teu nome" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="o.teu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Tipo de Projeto</label>
+          <select name="servico" required>
+            <option value="">Seleciona um serviço...</option>
+            <option>Identidade Visual / Branding</option>
+            <option>Design para Redes Sociais</option>
+            <option>Logótipo</option>
+            <option>Material de Marketing</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensagem</label>
+          <textarea name="mensagem" placeholder="Descreve o teu projeto..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          Enviar Mensagem ✦
+        </button>
+        <div class="success-msg" id="successMsg">✅ Mensagem enviada! Entro em contacto em breve.</div>
+      </form>
     </div>
   </div>
 </section>
@@ -1360,6 +1367,27 @@
 </footer>
 
 <script>
+  async function handleContactSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    try {
+      await fetch('/', { method: 'POST', body: data });
+    } catch(err) {}
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = '✅ Enviado!';
+    btn.style.background = '#4ecca3';
+    btn.style.color = '#0a0a0a';
+    document.getElementById('successMsg').style.display = 'block';
+    setTimeout(() => {
+      form.reset();
+      btn.textContent = 'Enviar Mensagem ✦';
+      btn.style.background = '';
+      btn.style.color = '';
+      document.getElementById('successMsg').style.display = 'none';
+    }, 3500);
+  }
+
   // MODAL
   function openModal() {
     document.getElementById('modalOverlay').classList.add('open');
