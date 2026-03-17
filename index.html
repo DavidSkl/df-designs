@@ -1050,9 +1050,14 @@
         <input type="text" name="nome" placeholder="Como te chamas?" required>
       </div>
       <div class="form-group">
-        <label>Email de contacto</label>
-        <input type="email" name="email" placeholder="o.teu@email.com" required>
+        <label>Email <span style="color:#555;font-weight:400;text-transform:none">(opcional se deres telemóvel)</span></label>
+        <input type="email" name="email" id="modal-email" placeholder="o.teu@email.com">
       </div>
+      <div class="form-group">
+        <label>Telemóvel / WhatsApp <span style="color:#555;font-weight:400;text-transform:none">(opcional se deres email)</span></label>
+        <input type="tel" name="telemovel" id="modal-tel" placeholder="+351 9XX XXX XXX">
+      </div>
+      <div id="contacto-modal-error" style="display:none;color:#E8000D;font-size:0.78rem;margin-top:-0.5rem;margin-bottom:0.5rem">⚠️ Tens de meter pelo menos email ou telemóvel.</div>
       <div class="form-group">
         <label>Tipo de projeto</label>
         <select name="servico" required>
@@ -1067,10 +1072,6 @@
       <div class="form-group">
         <label>Mensagem</label>
         <textarea name="mensagem" placeholder="Descreve o teu projeto..." required></textarea>
-      </div>
-      <div class="form-group">
-        <label>Telemóvel <span style="color:#555;font-weight:400;text-transform:none">(opcional — para contacto via WhatsApp)</span></label>
-        <input type="tel" name="telemovel" placeholder="+351 9XX XXX XXX">
       </div>
       <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;margin-top:0.5rem">
         <input type="checkbox" name="rgpd" id="rgpd-modal" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--red);cursor:pointer">
@@ -1334,9 +1335,14 @@
           <input type="text" name="nome" placeholder="O teu nome" required>
         </div>
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="o.teu@email.com" required>
+          <label>Email <span style="color:#555;font-weight:400;text-transform:none">(opcional se deres telemóvel)</span></label>
+          <input type="email" name="email" id="contacto-email" placeholder="o.teu@email.com">
         </div>
+        <div class="form-group">
+          <label>Telemóvel / WhatsApp <span style="color:#555;font-weight:400;text-transform:none">(opcional se deres email)</span></label>
+          <input type="tel" name="telemovel" id="contacto-tel" placeholder="+351 9XX XXX XXX">
+        </div>
+        <div id="contacto-contacto-error" style="display:none;color:#E8000D;font-size:0.78rem;margin-top:-0.5rem;margin-bottom:0.5rem">⚠️ Tens de meter pelo menos email ou telemóvel.</div>
         <div class="form-group">
           <label>Tipo de Projeto</label>
           <select name="servico" required>
@@ -1351,10 +1357,6 @@
         <div class="form-group">
           <label>Mensagem</label>
           <textarea name="mensagem" placeholder="Descreve o teu projeto..." required></textarea>
-        </div>
-        <div class="form-group">
-          <label>Telemóvel <span style="color:#555;font-weight:400;text-transform:none">(opcional — para contacto via WhatsApp)</span></label>
-          <input type="tel" name="telemovel" placeholder="+351 9XX XXX XXX">
         </div>
         <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;margin-top:0.5rem">
           <input type="checkbox" name="rgpd" id="rgpd-contacto" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--red);cursor:pointer">
@@ -1390,13 +1392,25 @@
   async function handleContactSubmit(e) {
     e.preventDefault();
     const form = e.target;
+    const email = document.getElementById('contacto-email').value.trim();
+    const tel = document.getElementById('contacto-tel').value.trim();
     const rgpd = document.getElementById('rgpd-contacto');
+    const contactoError = document.getElementById('contacto-contacto-error');
     const rgpdError = document.getElementById('rgpd-contacto-error');
+
+    if (!email && !tel) {
+      contactoError.style.display = 'block';
+      return;
+    } else {
+      contactoError.style.display = 'none';
+    }
+
     if (!rgpd.checked) {
       rgpdError.style.display = 'block';
       return;
     }
     rgpdError.style.display = 'none';
+
     const data = new FormData(form);
     try {
       await fetch('/', { method: 'POST', body: data });
@@ -1440,14 +1454,27 @@
   async function handleModalSubmit(e) {
     e.preventDefault();
     const form = e.target;
+    const email = document.getElementById('modal-email').value.trim();
+    const tel = document.getElementById('modal-tel').value.trim();
     const rgpd = document.getElementById('rgpd-modal');
+    const contactoError = document.getElementById('contacto-modal-error');
     const rgpdError = document.getElementById('rgpd-modal-error');
+
+    // Valida pelo menos email ou telemóvel
+    if (!email && !tel) {
+      contactoError.style.display = 'block';
+      return;
+    } else {
+      contactoError.style.display = 'none';
+    }
+
+    // Valida RGPD
     if (!rgpd.checked) {
       rgpdError.style.display = 'block';
-      rgpd.parentElement.style.borderColor = 'var(--red)';
       return;
     }
     rgpdError.style.display = 'none';
+
     const data = new FormData(form);
     try {
       await fetch('/', { method: 'POST', body: data });
