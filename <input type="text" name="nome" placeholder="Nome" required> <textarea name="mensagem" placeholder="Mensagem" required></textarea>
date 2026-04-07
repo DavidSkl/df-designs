@@ -1,0 +1,106 @@
+<!-- DF Designs vFINAL (Vercel + EmailJS FUNCIONAL) -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DF Designs</title>
+
+<!-- EMAILJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){
+  emailjs.init("mJLf45k-lRCgbvIuL");
+})();
+</script>
+
+<style>
+/* mantém o teu CSS todo igual */
+</style>
+</head>
+
+<body>
+
+<!-- FORM -->
+<form id="contactForm" onsubmit="handleContactSubmit(event)">
+  <input type="text" name="name" placeholder="Nome" required>
+  <input type="email" name="email" id="contacto-email" placeholder="Email">
+  <input type="tel" name="telemovel" id="contacto-tel" placeholder="Telemóvel">
+
+  <select name="servico" required>
+    <option value="">Seleciona</option>
+    <option>Branding</option>
+    <option>Social Media</option>
+  </select>
+
+  <textarea name="message" placeholder="Mensagem" required></textarea>
+
+  <label>
+    <input type="checkbox" id="rgpd-contacto"> Aceito termos
+  </label>
+
+  <button type="submit" class="btn-submit">
+    Pedir Orçamento → Resposta em 24h
+  </button>
+
+  <div id="successMsg" style="display:none;">✅ Mensagem enviada!</div>
+</form>
+
+<script>
+async function handleContactSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+
+  const email = document.getElementById('contacto-email').value.trim();
+  const tel = document.getElementById('contacto-tel').value.trim();
+  const rgpd = document.getElementById('rgpd-contacto');
+
+  const btn = form.querySelector('.btn-submit');
+  const success = document.getElementById('successMsg');
+
+  if (!email && !tel) {
+    alert("⚠️ Mete email ou telemóvel");
+    return;
+  }
+
+  if (!rgpd.checked) {
+    alert("⚠️ Aceita os termos");
+    return;
+  }
+
+  btn.textContent = "A enviar...";
+  btn.disabled = true;
+
+  try {
+    await emailjs.sendForm(
+      "service_dfdesigns",
+      "template_dfdesigns",
+      form
+    );
+  } catch (err) {
+    alert("Erro ao enviar");
+    btn.disabled = false;
+    btn.textContent = "Pedir Orçamento → Resposta em 24h";
+    return;
+  }
+
+  btn.textContent = "✅ Enviado!";
+  btn.style.background = "#4ecca3";
+  btn.style.color = "#000";
+
+  success.style.display = "block";
+
+  setTimeout(() => {
+    form.reset();
+    btn.disabled = false;
+    btn.textContent = "Pedir Orçamento → Resposta em 24h";
+    btn.style.background = "";
+    btn.style.color = "";
+    success.style.display = "none";
+  }, 4000);
+}
+</script>
+
+</body>
+</html>
