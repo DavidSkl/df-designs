@@ -1273,16 +1273,6 @@
 
       <div class="contact-item">
         <div class="contact-icon">
-          <svg width="20" height="20" fill="none" stroke="#E8000D" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <div>
-          <div class="contact-item-title">Email</div>
-          <div class="contact-item-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f1969483909db1959795948298969f82df8185">[email&#160;protected]</a></div>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">
           <svg width="20" height="20" fill="none" stroke="#E8000D" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
         <div>
